@@ -1,0 +1,511 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Chris Dixon</title>
+<meta name="description" content="Projects, notes and stuff by Chris Dixon.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap">
+
+<style>
+  :root {
+    --yellow:  #FFE04B;
+    --pink:    #FF6B9D;
+    --blue:    #4ECDC4;
+    --purple:  #A78BFA;
+    --orange:  #FF8C42;
+    --green:   #5CDB95;
+    --red:     #FF4757;
+    --ink:     #1A1A2E;
+    --bg:      #FFFBF0;
+    --card-bg: #FFFFFF;
+    --border:  3px solid var(--ink);
+    --radius:  18px;
+    --shadow:  5px 5px 0 var(--ink);
+    --shadow-lg: 7px 7px 0 var(--ink);
+    color-scheme: light;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Nunito', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--yellow);
+    border-bottom: 3px solid var(--ink);
+    padding: 56px 24px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before,
+  .hero::after {
+    content: '★';
+    position: absolute;
+    font-size: 80px;
+    opacity: 0.15;
+    top: 10px;
+  }
+  .hero::before { left: -10px; transform: rotate(-20deg); }
+  .hero::after  { right: -10px; transform: rotate(15deg); }
+
+  .hero-name {
+    font-family: 'Fredoka One', sans-serif;
+    font-size: clamp(2.8rem, 10vw, 5.5rem);
+    font-weight: 400;
+    margin: 0 0 10px;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+    text-shadow: 4px 4px 0 rgba(0,0,0,0.12);
+  }
+
+  .hero-tagline {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--ink);
+    opacity: 0.7;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .pill {
+    background: var(--ink);
+    color: var(--yellow);
+    padding: 4px 14px;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    display: inline-block;
+  }
+
+  /* ── LAYOUT ── */
+  .main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 48px 20px 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+  }
+
+  .section-title {
+    font-family: 'Fredoka One', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    margin: 0 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 3px;
+    background: var(--ink);
+    border-radius: 2px;
+    opacity: 0.15;
+  }
+
+  /* ── NOTES CARD (featured) ── */
+  .notes-card {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    background: var(--blue);
+    border: var(--border);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    text-decoration: none;
+    color: var(--ink);
+    box-shadow: var(--shadow-lg);
+    transition: transform 0.15s, box-shadow 0.15s;
+    position: relative;
+  }
+  .notes-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 9px 9px 0 var(--ink);
+  }
+
+  .notes-emoji {
+    font-size: 3rem;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  .notes-body { flex: 1; min-width: 0; }
+
+  .notes-name {
+    font-family: 'Fredoka One', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin: 0 0 4px;
+  }
+
+  .notes-url {
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    opacity: 0.7;
+    margin: 0 0 8px;
+  }
+
+  .notes-desc {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin: 0;
+    opacity: 0.85;
+    max-width: 400px;
+  }
+
+  .notes-arrow {
+    font-size: 2rem;
+    flex-shrink: 0;
+    transition: transform 0.15s;
+  }
+  .notes-card:hover .notes-arrow { transform: translateX(5px); }
+
+  @media (max-width: 500px) {
+    .notes-card { flex-wrap: wrap; }
+    .notes-arrow { display: none; }
+  }
+
+  /* ── PROJECT GRID ── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 18px;
+  }
+
+  .project-card {
+    background: var(--card-bg);
+    border: var(--border);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    text-decoration: none;
+    color: var(--ink);
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: transform 0.15s, box-shadow 0.15s;
+    position: relative;
+  }
+  .project-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0 var(--ink);
+  }
+
+  /* Each card gets its own accent colour via a top border stripe */
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: -3px; left: -3px; right: -3px;
+    height: 10px;
+    border-radius: var(--radius) var(--radius) 0 0;
+    border: var(--border);
+    border-bottom: none;
+  }
+  .c1::before { background: var(--pink); }
+  .c2::before { background: var(--purple); }
+  .c3::before { background: var(--orange); }
+  .c4::before { background: var(--green); }
+  .c5::before { background: var(--red); }
+  .c6::before { background: var(--blue); }
+  .c7::before { background: var(--yellow); }
+
+  .proj-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 6px;
+  }
+  .proj-emoji { font-size: 1.4rem; line-height: 1; }
+  .proj-name {
+    font-family: 'Fredoka One', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 400;
+  }
+  .proj-desc {
+    font-size: 0.82rem;
+    font-weight: 600;
+    opacity: 0.65;
+    line-height: 1.5;
+    flex: 1;
+  }
+  .proj-tag {
+    align-self: flex-start;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 999px;
+    border: 2px solid var(--ink);
+    background: var(--bg);
+    margin-top: auto;
+  }
+
+  .gh-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    font-size: 0.88rem;
+    font-weight: 800;
+    text-decoration: none;
+    color: var(--ink);
+    background: var(--yellow);
+    border: var(--border);
+    border-radius: 999px;
+    padding: 8px 20px;
+    box-shadow: 3px 3px 0 var(--ink);
+    transition: transform 0.12s, box-shadow 0.12s;
+  }
+  .gh-all:hover {
+    transform: translate(-1px,-1px);
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  @media (max-width: 600px) {
+    .about-grid { grid-template-columns: 1fr; }
+  }
+
+  .about-main {
+    background: var(--pink);
+    border: var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    box-shadow: var(--shadow);
+  }
+
+  .about-headline {
+    font-family: 'Fredoka One', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin: 0 0 12px;
+    line-height: 1.3;
+  }
+
+  .about-body {
+    font-size: 0.9rem;
+    font-weight: 600;
+    opacity: 0.8;
+    margin: 0 0 20px;
+    line-height: 1.6;
+  }
+
+  .contact-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .contact-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.83rem;
+    font-weight: 800;
+    text-decoration: none;
+    color: var(--ink);
+    background: white;
+    border: var(--border);
+    border-radius: 10px;
+    padding: 7px 16px;
+    box-shadow: 3px 3px 0 var(--ink);
+    transition: transform 0.12s, box-shadow 0.12s;
+  }
+  .contact-btn:hover {
+    transform: translate(-1px,-1px);
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+
+  .skills-card {
+    background: var(--purple);
+    border: var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    box-shadow: var(--shadow);
+  }
+
+  .skills-card h3 {
+    font-family: 'Fredoka One', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin: 0 0 16px;
+  }
+
+  .skills-list {
+    list-style: none;
+    margin: 0; padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .skill-row {
+    background: rgba(255,255,255,0.35);
+    border: 2px solid rgba(0,0,0,0.12);
+    border-radius: 10px;
+    padding: 8px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .skill-em { font-size: 1.1rem; }
+  .skill-text {
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 28px 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    opacity: 0.45;
+    border-top: 3px solid var(--ink);
+  }
+</style>
+
+<!-- HERO -->
+<header class="hero">
+  <h1 class="hero-name">Chris Dixon</h1>
+  <p class="hero-tagline">
+    <span class="pill">Digital Strategy</span>
+    <span class="pill">AI &amp; Automation</span>
+    <span class="pill">Web Projects</span>
+    <span class="pill">Lancaster, UK</span>
+  </p>
+</header>
+
+<main class="main">
+
+  <!-- ── WRITING ── -->
+  <section>
+    <h2 class="section-title">✍️ Writing</h2>
+    <a class="notes-card" href="https://notes.chrisdixon.net" target="_blank" rel="noopener">
+      <div class="notes-emoji">📝</div>
+      <div class="notes-body">
+        <p class="notes-name">Notes</p>
+        <p class="notes-url">notes.chrisdixon.net</p>
+        <p class="notes-desc">Thoughts on AI, digital strategy, and whatever else I'm working through — published from Obsidian.</p>
+      </div>
+      <span class="notes-arrow">→</span>
+    </a>
+  </section>
+
+  <!-- ── PROJECTS ── -->
+  <section>
+    <h2 class="section-title">🚀 Projects</h2>
+    <div class="projects-grid">
+
+      <a class="project-card c1" href="https://github.com/egonspengler24/teesbooking" target="_blank" rel="noopener">
+        <div class="proj-top"><span class="proj-emoji">📅</span><span class="proj-name">Tees Booking</span></div>
+        <p class="proj-desc">Booking system for St Thomas Lancaster — rooms and facility reservations.</p>
+        <span class="proj-tag">Web App</span>
+      </a>
+
+      <a class="project-card c2" href="https://github.com/egonspengler24/teestour" target="_blank" rel="noopener">
+        <div class="proj-top"><span class="proj-emoji">🏛️</span><span class="proj-name">Tees Tour</span></div>
+        <p class="proj-desc">Virtual 360° walkthrough of St Thomas Church Centre.</p>
+        <span class="proj-tag">Virtual Tour</span>
+      </a>
+
+      <a class="project-card c3" href="https://github.com/egonspengler24/classroom-dashboard" target="_blank" rel="noopener">
+        <div class="proj-top"><span class="proj-emoji">🖥️</span><span class="proj-name">Classroom Dashboard</span></div>
+        <p class="proj-desc">Smart-board dashboard for classroom display — live info at a glance.</p>
+        <span class="proj-tag">Dashboard</span>
+      </a>
+
+      <a class="project-card c4" href="https://github.com/egonspengler24/plinko-conquest" target="_blank" rel="noopener">
+        <div class="proj-top"><span class="proj-emoji">🎮</span><span class="proj-name">Plinko Conquest</span></div>
+        <p class="proj-desc">Physics-based Plinko game — pure browser fun.</p>
+        <span class="proj-tag">Game</span>
+      </a>
+
+      <a class="project-card c5" href="https://github.com/egonspengler24/escape-room" target="_blank" rel="noopener">
+        <div class="proj-top"><span class="proj-emoji">🔓</span><span class="proj-name">Escape Room</span></div>
+        <p class="proj-desc">ENWL Apprentice Escape Room — interactive learning game for apprentices.</p>
+        <span class="proj-tag">Interactive</span>
+      </a>
+
+      <a class="project-card c6" href="https://github.com/egonspengler24/enwl" target="_blank" rel="noopener">
+        <div class="proj-top"><span class="proj-emoji">⚡</span><span class="proj-name">ENWL Tools</span></div>
+        <p class="proj-desc">Utilities and tools built for Electricity North West.</p>
+        <span class="proj-tag">Tooling</span>
+      </a>
+
+      <a class="project-card c7" href="https://github.com/egonspengler24/colour-animation-arena" target="_blank" rel="noopener">
+        <div class="proj-top"><span class="proj-emoji">🎨</span><span class="proj-name">Colour Animation Arena</span></div>
+        <p class="proj-desc">A colourful browser-based animation playground.</p>
+        <span class="proj-tag">Creative</span>
+      </a>
+
+    </div>
+
+    <a class="gh-all" href="https://github.com/egonspengler24" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+      </svg>
+      All repos on GitHub
+    </a>
+  </section>
+
+  <!-- ── ABOUT ── -->
+  <section>
+    <h2 class="section-title">👋 About</h2>
+    <div class="about-grid">
+      <div class="about-main">
+        <p class="about-headline">Digital strategist, builder &amp; lifelong learner based in Lancaster.</p>
+        <p class="about-body">I work at the intersection of strategy, technology and people — helping organisations think clearly about digital, and building tools that make work a bit better. Currently exploring how AI changes everything.</p>
+        <div class="contact-buttons">
+          <a class="contact-btn" href="https://github.com/egonspengler24" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub
+          </a>
+          <a class="contact-btn" href="https://notes.chrisdixon.net" target="_blank" rel="noopener">
+            ✍️ Notes
+          </a>
+        </div>
+      </div>
+
+      <div class="skills-card">
+        <h3>What I do 🛠️</h3>
+        <ul class="skills-list">
+          <li class="skill-row"><span class="skill-em">📊</span><span class="skill-text">Digital Strategy &amp; Transformation</span></li>
+          <li class="skill-row"><span class="skill-em">🤖</span><span class="skill-text">AI &amp; Automation</span></li>
+          <li class="skill-row"><span class="skill-em">🌐</span><span class="skill-text">Web Development</span></li>
+          <li class="skill-row"><span class="skill-em">🎓</span><span class="skill-text">Learning &amp; Development</span></li>
+          <li class="skill-row"><span class="skill-em">🎸</span><span class="skill-text">Worship Music &amp; AV</span></li>
+          <li class="skill-row"><span class="skill-em">💡</span><span class="skill-text">Community &amp; Church</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  chrisdixon.net — built with plain HTML &amp; good vibes ✨
+</footer>
+
+</body></html>
